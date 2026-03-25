@@ -49,7 +49,7 @@ const projects: Project[] = [
     title: "Portafolio Creativo",
     description: "Sitio web personal con animaciones, galería interactiva y blog integrado.",
     image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&h=500&fit=crop",
-    repoUrl: "https://github.com",
+    repoUrl: "https://github.com/Enma0101/Protafolio",
     stacks: ["React", "Tailwind CSS", "Python"],
   },
   {
