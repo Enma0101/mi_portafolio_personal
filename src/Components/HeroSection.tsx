@@ -7,7 +7,7 @@ const HeroSection = () => {
   const { t } = useTranslation();
 
   return (
-    <section id="about" className="min-h-screen flex items-center justify-center bg-gradient-hero relative overflow-hidden pt-16">
+    <section id="about" className="min-h-screen flex items-center justify-center bg-gradient-hero relative overflow-hidden pt-32 pb-16">
       {/* Decorative orbs */}
       <div className="absolute top-20 right-10 w-72 h-72 rounded-full bg-primary/5 blur-3xl animate-float" />
       <div className="absolute bottom-20 left-10 w-96 h-96 rounded-full bg-accent/5 blur-3xl animate-float" style={{ animationDelay: "3s" }} />
