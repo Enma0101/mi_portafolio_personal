@@ -1,16 +1,19 @@
 import ThemeToggle from "@/Components/ThemeToggle";
+import LanguageToggle from "@/Components/LanguageToggle";
 import { Code2 } from "lucide-react";
 import { useState, useEffect } from "react";
-
-const navLinks = [
-  { name: "Sobre mí", href: "#about" },
-  { name: "Skills", href: "#skills" },
-  { name: "Proyectos", href: "#projects" },
-  { name: "Contacto", href: "#contact" },
-];
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const { t } = useTranslation();
   const [activeSection, setActiveSection] = useState("");
+
+  const navLinks = [
+    { name: t("nav.about"), href: "#about" },
+    { name: t("nav.skills"), href: "#skills" },
+    { name: t("nav.projects"), href: "#projects" },
+    { name: t("nav.contact"), href: "#contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -76,7 +79,10 @@ const Navbar = () => {
               </a>
             ))}
           </div>
-          <ThemeToggle />
+          <div className="flex items-center gap-3">
+            <LanguageToggle />
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </nav>

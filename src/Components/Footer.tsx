@@ -1,7 +1,10 @@
 import { Code2, Mail } from "lucide-react";
 import { Github, Linkedin } from "./Icons";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className="border-t border-border py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -9,7 +12,7 @@ const Footer = () => {
           <Code2 className="h-5 w-5 text-primary" />
           Portfolio
         </div>
-        <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} Todos los derechos reservados.</p>
+        <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} {t("footer.rights")}</p>
         <div className="flex items-center gap-3">
           {[
             { icon: Github, href: "https://github.com/Enma0101", label: "GitHub" },

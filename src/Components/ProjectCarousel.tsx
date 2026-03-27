@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import { Github } from "./Icons";
+import { useTranslation } from "react-i18next";
 
 interface Project {
   title: string;
@@ -12,57 +13,59 @@ interface Project {
   stacks: string[];
 }
 
-const projects: Project[] = [
-  {
-    title: "Comics Website",
-    description: "Sitio web de lectura digital optimizado para el consumo de contenido multimedia de alta resolución.",
-    image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%201.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCAxLnBuZyIsImlhdCI6MTc3NDQzNTMzNSwiZXhwIjoyMDg5Nzk1MzM1fQ.XtA9kDWhdKj8Ass8g6mW2kPkLzgFw_6BlE04REr4iJQ",
-    liveUrl: "https://comicsspider.vercel.app/",
-    repoUrl: "https://github.com/Enma0101/Spiderverse_page",
-    stacks: ["React", "Node.js", "Supabase", "Tailwind CSS"],
-  },
-  {
-    title: "POS & Warehouse System",
-    description: "Sistema integral POS y de gestión de inventarios, con componentes modernos y escalables.",
-    image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%201%20(1).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCAxICgxKS5wbmciLCJpYXQiOjE3NzQ0MzYzMTEsImV4cCI6MjA4OTc5NjMxMX0.sCHopaKcKD8WM8yYwa_cl5O4BcxW3jkDKcLneeatJ50",
-    liveUrl: "https://moto-chess.vercel.app/",
-    repoUrl: "https://github.com/Enma0101/MotoChess",
-    stacks: ["React", "Supabase", "Tailwind CSS"],
-  },
-
-  {
-    title: "POS System",
-    description: "Sistema integral POS para la gestión de ventas y facturacion.",
-    image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%202.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCAyLnBuZyIsImlhdCI6MTc3NDQzOTgyNSwiZXhwIjoyMDg5Nzk5ODI1fQ.M2LgE86bB44fw67lTYlFLhXPmY3aIayIT2Vij5Pi56I",
-    liveUrl: "https://frontend-supabase-pos-marateta-puhc.vercel.app/",
-    repoUrl: "https://github.com/Enma0101/PosMarateta",
-    stacks: ["React", "Supabase", "Tailwind CSS"],
-  },
-  {
-    title: "F1_Simulator",
-    description: "Simulador de carreras de Formula 1 con graficos retros y jugabilidad realista.",
-    image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%205%20(3).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCA1ICgzKS5wbmciLCJpYXQiOjE3NzQ0MzcxNTgsImV4cCI6MjA4OTc5NzE1OH0.oE2sHRp2i7vF0xwHaXVKzCaZkOItYXAEeDHCVu9L3Qw",
-    repoUrl: "https://github.com/Enma0101/Formula-1_Simulator",
-    stacks: ["java"],
-  },
-  {
-    title: "Portafolio Creativo",
-    description: "Sitio web personal con animaciones, galería interactiva y blog integrado.",
-    image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&h=500&fit=crop",
-    repoUrl: "https://github.com",
-    stacks: ["React", "Tailwind CSS", "Python"],
-  },
-  {
-    title: "Math app",
-    description: "Aplicación de operaciones matemáticas básicas para niños con sistema de gamificación.",
-    image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%201%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCAxICgyKS5wbmciLCJpYXQiOjE3NzQ0Mzg5MDEsImV4cCI6MjA4OTc5ODkwMX0.11gA6I-ZuEF8DgS8ycwMAVTTvzOS_N6OIfPYnYONQ4k",
-    liveUrl: "https://grupo2pw.miuni.kids/login",
-    repoUrl: "https://github.com/Enma0101/math_app",
-    stacks: ["React", "Tailwind CSS", "PostgreSQL", "PHP"],
-  },
-];
-
 const ProjectCarousel = () => {
+  const { t } = useTranslation();
+
+  const projects: Project[] = [
+    {
+      title: t("projects.list.comics.title"),
+      description: t("projects.list.comics.description"),
+      image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%201.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCAxLnBuZyIsImlhdCI6MTc3NDQzNTMzNSwiZXhwIjoyMDg5Nzk1MzM1fQ.XtA9kDWhdKj8Ass8g6mW2kPkLzgFw_6BlE04REr4iJQ",
+      liveUrl: "https://comicsspider.vercel.app/",
+      repoUrl: "https://github.com/Enma0101/Spiderverse_page",
+      stacks: ["React", "Node.js", "Supabase", "Tailwind CSS"],
+    },
+    {
+      title: t("projects.list.posWarehouse.title"),
+      description: t("projects.list.posWarehouse.description"),
+      image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%201%20(1).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCAxICgxKS5wbmciLCJpYXQiOjE3NzQ0MzYzMTEsImV4cCI6MjA4OTc5NjMxMX0.sCHopaKcKD8WM8yYwa_cl5O4BcxW3jkDKcLneeatJ50",
+      liveUrl: "https://moto-chess.vercel.app/",
+      repoUrl: "https://github.com/Enma0101/MotoChess",
+      stacks: ["React", "Supabase", "Tailwind CSS"],
+    },
+
+    {
+      title: t("projects.list.pos.title"),
+      description: t("projects.list.pos.description"),
+      image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%202.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCAyLnBuZyIsImlhdCI6MTc3NDQzOTgyNSwiZXhwIjoyMDg5Nzk5ODI1fQ.M2LgE86bB44fw67lTYlFLhXPmY3aIayIT2Vij5Pi56I",
+      liveUrl: "https://frontend-supabase-pos-marateta-puhc.vercel.app/",
+      repoUrl: "https://github.com/Enma0101/PosMarateta",
+      stacks: ["React", "Supabase", "Tailwind CSS"],
+    },
+    {
+      title: t("projects.list.f1.title"),
+      description: t("projects.list.f1.description"),
+      image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%205%20(3).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCA1ICgzKS5wbmciLCJpYXQiOjE3NzQ0MzcxNTgsImV4cCI6MjA4OTc5NzE1OH0.oE2sHRp2i7vF0xwHaXVKzCaZkOItYXAEeDHCVu9L3Qw",
+      repoUrl: "https://github.com/Enma0101/Formula-1_Simulator",
+      stacks: ["java"],
+    },
+    {
+      title: t("projects.list.creativePortfolio.title"),
+      description: t("projects.list.creativePortfolio.description"),
+      image: "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&h=500&fit=crop",
+      repoUrl: "https://github.com",
+      stacks: ["React", "Tailwind CSS", "Python"],
+    },
+    {
+      title: t("projects.list.mathApp.title"),
+      description: t("projects.list.mathApp.description"),
+      image: "https://rurmwkgzzglkfcsiwtol.supabase.co/storage/v1/object/sign/ojgxeeigowcyuwwwgvkt/Group%201%20(2).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMzJhY2Q5Yy1hOTlmLTQ3MzYtOWEyNS1jMjExNzcxYTNlOWIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJvamd4ZWVpZ293Y3l1d3d3Z3ZrdC9Hcm91cCAxICgyKS5wbmciLCJpYXQiOjE3NzQ0Mzg5MDEsImV4cCI6MjA4OTc5ODkwMX0.11gA6I-ZuEF8DgS8ycwMAVTTvzOS_N6OIfPYnYONQ4k",
+      liveUrl: "https://grupo2pw.miuni.kids/login",
+      repoUrl: "https://github.com/Enma0101/math_app",
+      stacks: ["React", "Tailwind CSS", "PostgreSQL", "PHP"],
+    },
+  ];
+
   const [current, setCurrent] = useState(0);
 
   const navigate = (dir: number) => {
@@ -94,10 +97,10 @@ const ProjectCarousel = () => {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase bg-secondary/10 text-secondary border border-secondary/20 mb-4">
-            Portafolio
+            {t("projects.subtitle")}
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-bold">
-            Mis <span className="text-gradient">Proyectos</span>
+            {t("projects.title")} <span className="text-gradient">{t("projects.highlight")}</span>
           </h2>
         </motion.div>
 
@@ -164,7 +167,7 @@ const ProjectCarousel = () => {
                             className="inline-flex items-center gap-1.5 text-xs font-medium text-secondary hover:text-primary transition-colors"
                           >
                             <ExternalLink className="h-3.5 w-3.5" />
-                            Live Demo
+                            {t("projects.liveDemo")}
                           </a>
                         )}
                         {project.repoUrl && (
@@ -175,7 +178,7 @@ const ProjectCarousel = () => {
                             className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
                           >
                             <Github className="h-3.5 w-3.5" />
-                            Código
+                            {t("projects.code")}
                           </a>
                         )}
                       </div>

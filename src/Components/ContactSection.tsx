@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { Mail, MapPin, Send } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const ContactSection = () => {
+  const { t } = useTranslation();
+
   return (
     <section id="contact" className="py-24 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -13,10 +16,10 @@ const ContactSection = () => {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase bg-primary/10 text-primary border border-primary/20 mb-4">
-            Contacto
+            {t("contact.subtitle")}
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-bold">
-            ¿Tienes un <span className="text-gradient">proyecto</span>?
+            {t("contact.title")} <span className="text-gradient">{t("contact.highlight")}</span>
           </h2>
         </motion.div>
 
@@ -50,21 +53,21 @@ const ContactSection = () => {
               <input
                 type="text"
                 name="name"
-                placeholder="Nombre"
+                placeholder={t("contact.namePlaceholder")}
                 required
                 className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition"
               />
               <input
                 type="email"
                 name="email"
-                placeholder="Email"
+                placeholder={t("contact.emailPlaceholder")}
                 required
                 className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition"
               />
             </div>
             <textarea
               name="message"
-              placeholder="Tu mensaje..."
+              placeholder={t("contact.messagePlaceholder")}
               rows={4}
               required
               className="w-full px-4 py-3 rounded-xl bg-muted/50 border border-border text-foreground placeholder:text-muted-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 transition resize-none"
@@ -73,7 +76,7 @@ const ContactSection = () => {
               type="submit"
               className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gradient-primary text-primary-foreground font-medium text-sm hover:opacity-90 transition-opacity shadow-glow"
             >
-              Enviar mensaje
+              {t("contact.sendButton")}
               <Send className="h-4 w-4" />
             </button>
           </form>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const skills = [
   { name: "React", level: 95, category: "Frontend" },
@@ -8,14 +9,22 @@ const skills = [
   { name: "Node.js", level: 85, category: "Backend" },
   { name: "PostgreSQL", level: 85, category: "Backend" },
   { name: "Python", level: 90, category: "Backend" },
+  { name: "Django", level: 90, category: "Backend" },
   { name: "Docker", level: 80, category: "DevOps" },
   { name: "Git", level: 90, category: "DevOps" },
   { name: "Figma", level: 95, category: "Design" },
 ];
 
-const categories = ["Frontend", "Backend", "DevOps", "Design"];
-
 const SkillsSection = () => {
+  const { t } = useTranslation();
+
+  const categories = [
+    t("skills.categories.frontend"),
+    t("skills.categories.backend"),
+    t("skills.categories.devops"),
+    t("skills.categories.design"),
+  ];
+
   return (
     <section id="skills" className="py-24 relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -27,10 +36,10 @@ const SkillsSection = () => {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block px-4 py-1.5 rounded-full text-xs font-medium tracking-wider uppercase bg-accent/10 text-accent border border-accent/20 mb-4">
-            Tecnologías
+            {t("skills.subtitle")}
           </span>
           <h2 className="text-3xl sm:text-4xl font-display font-bold">
-            Skills & <span className="text-gradient">Herramientas</span>
+            {t("skills.title")} <span className="text-gradient">{t("skills.highlight")}</span>
           </h2>
         </motion.div>
 
@@ -47,7 +56,7 @@ const SkillsSection = () => {
               <h3 className="font-display font-semibold text-sm uppercase tracking-wider text-primary mb-5">{cat}</h3>
               <div className="space-y-4">
                 {skills
-                  .filter((s) => s.category === cat)
+                  .filter((s) => t(`skills.categories.${s.category.toLowerCase()}`) === cat)
                   .map((skill) => (
                     <div key={skill.name}>
                       <div className="flex justify-between mb-1.5">
